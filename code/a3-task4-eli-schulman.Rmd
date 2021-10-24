@@ -27,8 +27,9 @@ urchins_purp <- read_csv(here("data", "urchins.csv")) %>%
          site == 'NAPL',
          year == 2010)
 ```
+## Urchin Treatment Sampling {.tabset .tabset-pills}
 
-### Exploratory graphics (distribution histogram and Q-Q plot)
+### Exploratory graphics (histogram and Q-Q plot)
 
 ```{r}
 # histogram of purple urchins to show distribution of sizes at naples between control and annual groups
@@ -41,16 +42,33 @@ ggplot(urchins_purp, aes(sample = size)) +
 
 ```
 
-#### Distribution Interpretation: The samples are normally distributed, and exhibit a slight positive skew. Additionaly, removing the giant kelp each winter (ANNUAL treatment) results in smaller sample sizes of purple urchins at Naples Reef.
+#### Interpretation: The sample s are normally distributed, and exhibit a slight positive skew. Additionaly, there are more samples taken from the area which had annual kelp removal than from the control group. We cannot tell, from these graphics, whether removing the giant kelp each winter (ANNUAL treatment) results in smaller purple urchins at Naples Reef.
 
-### Summary Statistics for purple urchins at Naples Reef (Control vs. Annual)
+### Summary Statistics for Purple Urchins at Naples Reef (Control vs. Annual)
 
 ```{r}
-urchins_purp
-
+urchins_purp_stats <- urchins_purp %>% 
+# add new column with reader friendly treatment descriptions
+  mutate(treatment_descr = case_when(
+    treatment == "ANNUAL" ~ "Annual Kelp Removal (Each Winter)",
+    TRUE ~ "Control Group (No Kelp Removal)")
+    ) %>% 
+  group_by(treatment_descr) %>% 
+# create sample statistics
+  summarize(sample_size = n(),
+            mean = signif(mean(size), 2),
+            min = signif(min(size), 2),
+            max = signif(max(size), 2),
+            sd = signif(sd(size), 2)
+            )
+# create a formatted kable table 
+kable(urchins_purp_stats, 
+      col.names = c('Sampling Group', 'Sample Size', 'Mean (cm)', 'Smallest (cm)', 'Largest (cm)', 'Standard Deviation (cm)'),
+      caption = 'Sample Statistics for Purple Urchins at Naples Reef') %>% 
+  kable_styling(full_width = FALSE) %>% 
+  kable_material(c("striped"))
 ```
-
-
-
+#### Interpretation: Annual kelp removal doesn't appear to have a significant effect on Purple Urchin sizes at the Naples Reef. The mean sampling size of urchins, given kelp removal, was .2 cm smaller than the control group. Additionaly, the standard deviation between the control group and kelp removal group differed by only .03 cm (.87 cm and .90 cm respectively).
+##
 
 

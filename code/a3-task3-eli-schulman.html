@@ -203,10 +203,10 @@ pre code {
             sample_size = n())
 
 kable(urchins_stats, 
-      col.names = c(&#39;Species&#39;, &#39;Mean&#39;, &#39;Median&#39;, &#39;Standard Deviation&#39;, &#39;Sample Size&#39;),
+      col.names = c(&#39;Species&#39;, &#39;Mean (cm)&#39;, &#39;Median (cm)&#39;, &#39;Standard Deviation (cm)&#39;, &#39;Sample Size&#39;),
       caption = &quot;Urchin Species Statistics&quot;) %&gt;% 
-  kable_styling(full_width = TRUE)</code></pre>
-<table class="table" style="margin-left: auto; margin-right: auto;">
+  kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 Urchin Species Statistics
 </caption>
@@ -216,13 +216,13 @@ Urchin Species Statistics
 Species
 </th>
 <th style="text-align:right;">
-Mean
+Mean (cm)
 </th>
 <th style="text-align:right;">
-Median
+Median (cm)
 </th>
 <th style="text-align:right;">
-Standard Deviation
+Standard Deviation (cm)
 </th>
 <th style="text-align:right;">
 Sample Size
@@ -266,6 +266,9 @@ Red Urchin
 </tr>
 </tbody>
 </table>
+</div>
+<div id="section" class="section level3">
+<h3></h3>
 </div>
 
 

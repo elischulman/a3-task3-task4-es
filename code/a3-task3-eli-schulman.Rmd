@@ -40,7 +40,7 @@ ggplot(urchins, aes(x = size)) +
   facet_wrap(~ common_name)
 ```
 
-### Descriptive statistics for Urchins
+### Descriptive statistics for Urchins (STILL NEED TO CHANGE DECIMALS)
 
 ```{r}
 urchins_stats <- urchins %>% 
@@ -51,12 +51,13 @@ urchins_stats <- urchins %>%
             sample_size = n())
 
 kable(urchins_stats, 
-      col.names = c('Species', 'Mean', 'Median', 'Standard Deviation', 'Sample Size'),
+      col.names = c('Species', 'Mean (cm)', 'Median (cm)', 'Standard Deviation (cm)', 'Sample Size'),
       caption = "Urchin Species Statistics") %>% 
   kable_styling(full_width = FALSE)
 ```
 
-
+### Takeaway from urchin species distribution and stats summary: 
+#### The red urchins are more normaly distributed, and have a larger mean diameter relative to the purple urchins (6.78 cm vs 4.47 cm). Additionally, the red urchins have a larger spread in observed diameters compared to their mean.
 
 
 

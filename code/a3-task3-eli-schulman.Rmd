@@ -46,9 +46,9 @@ ggplot(urchins, aes(x = size)) +
 ```{r}
 urchins_stats <- urchins %>% 
   group_by(common_name) %>% 
-  summarize(mean = round(mean(size), 2),
-            median = round(median(size), 2),
-            sd = round(sd(size), 2),
+  summarize(mean = signif(mean(size), 2),
+            median = signif(median(size), 2),
+            sd = signif(sd(size), 2),
             sample_size = n())
 
 kable(urchins_stats, 
@@ -81,15 +81,24 @@ purple_urchins <- urchins %>%
 # Create summary table
 purple_urchins_trend <- purple_urchins %>% 
   group_by(year, site_full) %>% 
-  summarize(count = n())
+  summarize(pop = n())
 ```
 
 ### Graph Purple Urchin trends by site by year
 
 ```{r}
-
+ggplot(purple_urchins_trend, aes(x = year, y = pop)) +
+  geom_line(aes(color = site_full)) +
+  labs(title = "Purple Urchin Decline 2008-2020",
+       x = "Year",
+       y = "Site Population",
+       color = "Site") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = .5)) 
 ```
 
 
-
+QUESTIONS:
+1. sig figs instead of rounding for urchin descriptive stats kable table
+2. half years for purple urchin trends
 

@@ -40,14 +40,14 @@ ggplot(urchins, aes(x = size)) +
   facet_wrap(~ common_name)
 ```
 
-### Descriptive statistics for Urchins (STILL NEED TO CHANGE DECIMALS)
+### Descriptive statistics for Urchins
 
 ```{r}
 urchins_stats <- urchins %>% 
   group_by(common_name) %>% 
-  summarize(mean = mean(size),
-            median = median(size),
-            sd = sd(size),
+  summarize(mean = round(mean(size), 2),
+            median = round(median(size), 2),
+            sd = round(sd(size), 2),
             sample_size = n())
 
 kable(urchins_stats, 

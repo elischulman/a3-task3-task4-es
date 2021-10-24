@@ -1,0 +1,67 @@
+---
+title: "a3_task3_eli_schulman"
+author: "Eli Schulman"
+date: "10/23/2021"
+output: html_document
+---
+
+Overview:
+
+***Data Citation: ***
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# attach packages
+library(tidyverse)
+library(here)
+library(janitor)
+library(kableExtra)
+```
+
+```{r}
+urchins <- read_csv(here("data", "urchins.csv")) %>% 
+  clean_names()
+```
+
+### Purple vs Red urchins (distributions of sizes)
+
+```{r}
+ggplot(urchins, aes(x = size)) +
+  geom_histogram(aes(fill = common_name), bins = 10) +
+  labs(title = "Purple and Red Urchin Size Distribution",
+       x = "Diameter (cm)",
+       y = "# of Urchins",
+       fill = "Urchin Color") +
+# change legends color
+  scale_fill_manual(values = c("blueviolet","red3")) +
+# center the plot title
+  theme(plot.title = element_text(hjust = .5)) +
+  facet_wrap(~ common_name)
+```
+
+### Descriptive statistics for Urchins
+
+```{r}
+urchins_stats <- urchins %>% 
+  group_by(common_name) %>% 
+  summarize(mean = mean(size),
+            median = median(size),
+            sd = sd(size),
+            sample_size = n())
+
+kable(urchins_stats, 
+      col.names = c('Species', 'Mean', 'Median', 'Standard Deviation', 'Sample Size'),
+      caption = "Urchin Species Statistics") %>% 
+  kable_styling(full_width = FALSE)
+```
+
+
+
+
+
+
+
+
+
+

@@ -60,9 +60,7 @@ kable(urchins_stats,
 ### Takeaway from urchin species distribution and stats summary: 
 #### The red urchins are more normaly distributed, and have a larger mean diameter relative to the purple urchins (6.78 cm vs 4.47 cm). Additionally, the red urchins have a larger spread in observed diameters compared to their mean.
 
-## Section 2 -----------------------------------
-
-### Explore purple urchins counts by site by year. Store a table of these values
+### Purple urchins population sampling by site by year.
 
 ```{r}
 purple_urchins <- urchins %>% 
@@ -94,13 +92,14 @@ ggplot(purple_urchins_trend, aes(x = year, y = pop)) +
   labs(title = "Purple Urchin Decline 2008-2020",
        x = "Year",
        y = "Urchin Observations",
-       color = "Site",
-       caption = "Purple Urchin observations at every site in the study have declined since 2008. Kelp treatment at the sites may have an impact on observed population sizes.") +
+       color = "Site") +
   theme_minimal() +
 # center plot title
   theme(plot.title = element_text(hjust = .5)) 
 ```
 
+
+Data Interpretation: Population sampling of Purple Urchins indicate that, at every site in the study, populations have declined between 2008 and 2020. The sampling data could include errors resulting from differences in sampling methodology. Additionally, kelp treatment at the sites may have an impact on observed population sizes.
 
 QUESTIONS:
 1. half years for purple urchin trends

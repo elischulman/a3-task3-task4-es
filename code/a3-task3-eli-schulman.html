@@ -273,6 +273,32 @@ Red Urchin
 <h4>The red urchins are more normaly distributed, and have a larger mean diameter relative to the purple urchins (6.78 cm vs 4.47 cm). Additionally, the red urchins have a larger spread in observed diameters compared to their mean.</h4>
 </div>
 </div>
+<div id="section-2" class="section level2">
+<h2>Section 2</h2>
+<div id="explore-purple-urchins-counts-by-site-by-year.-store-a-table-of-these-values" class="section level3">
+<h3>Explore purple urchins counts by site by year. Store a table of these values</h3>
+<pre class="r"><code>purple_urchins &lt;- urchins %&gt;% 
+  filter(common_name == &quot;Purple Urchin&quot;) %&gt;% 
+  mutate(date = mdy(date)) %&gt;% 
+  mutate(year = year(date)) %&gt;% 
+  mutate(site_full = case_when(
+    site == &quot;NAPL&quot; ~ &quot;Naples Reef&quot;,
+    site == &quot;AQUE&quot; ~ &quot;Arroyo Quenado Reef&quot;,
+    site == &#39;CARP&#39; ~ &#39;Carpinteria Reef&#39;,
+    site == &#39;MOHK&#39; ~ &#39;Mohawk Reef&#39;,
+    site == &#39;IVEE&#39; ~ &#39;Isla Vista Reef&#39;,
+    TRUE ~ &quot;NA&quot;
+  ))
+
+# Create summary table
+purple_urchins_trend &lt;- purple_urchins %&gt;% 
+  group_by(year, site_full) %&gt;% 
+  summarize(count = n())</code></pre>
+</div>
+<div id="graph-purple-urchin-trends-by-site-by-year" class="section level3">
+<h3>Graph Purple Urchin trends by site by year</h3>
+</div>
+</div>
 
 
 

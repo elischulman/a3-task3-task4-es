@@ -17,6 +17,7 @@ library(tidyverse)
 library(here)
 library(janitor)
 library(kableExtra)
+library(lubridate)
 ```
 
 ```{r}
@@ -59,9 +60,35 @@ kable(urchins_stats,
 ### Takeaway from urchin species distribution and stats summary: 
 #### The red urchins are more normaly distributed, and have a larger mean diameter relative to the purple urchins (6.78 cm vs 4.47 cm). Additionally, the red urchins have a larger spread in observed diameters compared to their mean.
 
+## Section 2
 
+### Explore purple urchins counts by site by year. Store a table of these values
 
+```{r}
+purple_urchins <- urchins %>% 
+  filter(common_name == "Purple Urchin") %>% 
+  mutate(date = mdy(date)) %>% 
+  mutate(year = year(date)) %>% 
+  mutate(site_full = case_when(
+    site == "NAPL" ~ "Naples Reef",
+    site == "AQUE" ~ "Arroyo Quenado Reef",
+    site == 'CARP' ~ 'Carpinteria Reef',
+    site == 'MOHK' ~ 'Mohawk Reef',
+    site == 'IVEE' ~ 'Isla Vista Reef',
+    TRUE ~ "NA"
+  ))
 
+# Create summary table
+purple_urchins_trend <- purple_urchins %>% 
+  group_by(year, site_full) %>% 
+  summarize(count = n())
+```
+
+### Graph Purple Urchin trends by site by year
+
+```{r}
+
+```
 
 
 

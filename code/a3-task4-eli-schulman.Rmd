@@ -5,26 +5,52 @@ date: "10/24/2021"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# attach packages
+library(tidyverse)
+library(here)
+library(janitor)
+library(kableExtra)
+library(lubridate)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+urchins_purp <- read_csv(here("data", "urchins.csv")) %>% 
+  clean_names() %>%  
+# convert date column using lubridate, then create a year variable
+  mutate(date = mdy(date)) %>% 
+  mutate(year = year(date)) %>% 
+# filter for Naples, purple urchins, and 2010 data
+  filter(common_name == "Purple Urchin", 
+         site == 'NAPL',
+         year == 2010)
 ```
 
-## Including Plots
+### Exploratory graphics (distribution histogram and Q-Q plot)
 
-You can also embed plots, for example:
+```{r}
+# histogram of purple urchins to show distribution of sizes at naples between control and annual groups
+ggplot(urchins_purp, aes(x = size)) +
+  geom_histogram(aes(fill = treatment), bins = 10)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+# Q-Q plot to show "correlation"?????
+ggplot(urchins_purp, aes(sample = size)) +
+  geom_qq(aes(color = treatment), shape = 5, size = 4)
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+#### Distribution Interpretation: The samples are normally distributed, and exhibit a slight positive skew. Additionaly, removing the giant kelp each winter (ANNUAL treatment) results in smaller sample sizes of purple urchins at Naples Reef.
+
+### Summary Statistics for purple urchins at Naples Reef (Control vs. Annual)
+
+```{r}
+urchins_purp
+
+```
+
+
+
+
+

@@ -3,6 +3,8 @@ title: "Santa Barbara Urchins"
 author: "Eli Schulman"
 date: "10/23/2021"
 output: html_document
+editor_options: 
+  chunk_output_type: inline
 ---
 
 Overview:

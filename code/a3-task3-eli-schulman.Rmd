@@ -52,7 +52,7 @@ urchins_stats <- urchins %>%
 
 kable(urchins_stats, 
       col.names = c('Species', 'Mean (cm)', 'Median (cm)', 'Standard Deviation (cm)', 'Sample Size'),
-      caption = "Urchin Species Statistics") %>% 
+      caption = "Summary Statistics of Urchin Species Body Diameters") %>% 
   kable_styling(full_width = FALSE)
 ```
 

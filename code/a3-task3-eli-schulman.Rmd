@@ -1,5 +1,5 @@
 ---
-title: "a3_task3_eli_schulman"
+title: "Santa Barbara Urchins"
 author: "Eli Schulman"
 date: "10/23/2021"
 output: html_document
@@ -7,7 +7,7 @@ output: html_document
 
 Overview:
 
-***Data Citation: ***
+***Data Citation: *** Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b. 
 
 ```{r setup, include=FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
@@ -60,7 +60,7 @@ kable(urchins_stats,
 ### Takeaway from urchin species distribution and stats summary: 
 #### The red urchins are more normaly distributed, and have a larger mean diameter relative to the purple urchins (6.78 cm vs 4.47 cm). Additionally, the red urchins have a larger spread in observed diameters compared to their mean.
 
-## Section 2
+## Section 2 -----------------------------------
 
 ### Explore purple urchins counts by site by year. Store a table of these values
 
@@ -89,16 +89,19 @@ purple_urchins_trend <- purple_urchins %>%
 ```{r}
 ggplot(purple_urchins_trend, aes(x = year, y = pop)) +
   geom_line(aes(color = site_full)) +
+# apply trend line
+  geom_smooth(method = lm, se = FALSE, color = 'Black') +
   labs(title = "Purple Urchin Decline 2008-2020",
        x = "Year",
-       y = "Site Population",
-       color = "Site") +
+       y = "Urchin Observations",
+       color = "Site",
+       caption = "Purple Urchin observations at every site in the study have declined since 2008. Kelp treatment at the sites may have an impact on observed population sizes.") +
   theme_minimal() +
+# center plot title
   theme(plot.title = element_text(hjust = .5)) 
 ```
 
 
 QUESTIONS:
-1. sig figs instead of rounding for urchin descriptive stats kable table
-2. half years for purple urchin trends
+1. half years for purple urchin trends
 

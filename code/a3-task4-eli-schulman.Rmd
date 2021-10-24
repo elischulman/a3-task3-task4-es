@@ -34,15 +34,18 @@ urchins_purp <- read_csv(here("data", "urchins.csv")) %>%
 ```{r}
 # histogram of purple urchins to show distribution of sizes at naples between control and annual groups
 ggplot(urchins_purp, aes(x = size)) +
-  geom_histogram(aes(fill = treatment), bins = 10)
+  geom_histogram(aes(fill = treatment), bins = 10) +
+  facet_wrap(~ treatment)
 
 # Q-Q plot to show "correlation"?????
 ggplot(urchins_purp, aes(sample = size)) +
-  geom_qq(aes(color = treatment), shape = 5, size = 4)
+  geom_qq(aes(color = treatment), shape = 8, size = 4) +
+  geom_qq_line() +
+  facet_wrap(~ treatment)
 
 ```
 
-#### Interpretation: The sample s are normally distributed, and exhibit a slight positive skew. Additionaly, there are more samples taken from the area which had annual kelp removal than from the control group. We cannot tell, from these graphics, whether removing the giant kelp each winter (ANNUAL treatment) results in smaller purple urchins at Naples Reef.
+#### Interpretation: The sample s are normally distributed, and exhibit a slight positive skew. We cannot tell, from these graphics, whether removing the giant kelp each winter (ANNUAL treatment) results in smaller purple urchins at Naples Reef.
 
 ### Summary Statistics for Purple Urchins at Naples Reef (Control vs. Annual)
 

@@ -4,8 +4,13 @@ author: "Eli Schulman"
 date: "10/24/2021"
 output: html_document
 ---
+Overview: The code wrangles then visualizes data on Urchins (Purple and Red) in the Santa Barbara county. 
+Exploratory graphs (histogram and Q-Q plot) are used to visualize urchin distributions. Summary statistics regarding Purple Urchins at Naples Reef are shown.
 
-```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+***Data Citation: *** Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b. 
+
+## Setup - attach packages
+```{r setup, include=TRUE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 # attach packages
@@ -15,6 +20,8 @@ library(janitor)
 library(kableExtra)
 library(lubridate)
 ```
+
+## Exract data for Purple Urchins at Naples Reef in 2010
 
 ```{r}
 urchins_purp <- read_csv(here("data", "urchins.csv")) %>% 
@@ -29,7 +36,9 @@ urchins_purp <- read_csv(here("data", "urchins.csv")) %>%
 ```
 ## Urchin Treatment Sampling {.tabset .tabset-pills}
 
-### Exploratory graphics (histogram and Q-Q plot)
+### Exploratory Graphics
+
+Histogram and Q-Q Plots
 
 ```{r}
 # histogram of purple urchins to show distribution of sizes at naples between control and annual groups
@@ -45,9 +54,11 @@ ggplot(urchins_purp, aes(sample = size)) +
 
 ```
 
-#### Interpretation: The sample s are normally distributed, and exhibit a slight positive skew. We cannot tell, from these graphics, whether removing the giant kelp each winter (ANNUAL treatment) results in smaller purple urchins at Naples Reef.
+#### Interpretation: The samples are both normally distributed, and exhibit a slight positive skew. We cannot tell, from these graphics, whether removing the giant kelp each winter (ANNUAL treatment) results in smaller purple urchins at Naples Reef.
 
-### Summary Statistics for Purple Urchins at Naples Reef (Control vs. Annual)
+### Purple Urchins at Naples Reef
+
+Summary Statistics for Control Group Sample and Annual Kelp Removal Sample
 
 ```{r}
 urchins_purp_stats <- urchins_purp %>% 

@@ -7,7 +7,7 @@ editor_options:
   chunk_output_type: inline
 ---
 
-Overview:
+Overview: The code wrangles then visualizes data on Urchins (Purple and Red) in the Santa Barbara county. Size, measured in cm and as the urchin's diameter, is compared between species. Additionally, size as timeseries is shown.
 
 ***Data Citation: *** Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b. 
 
@@ -28,6 +28,7 @@ urchins <- read_csv(here("data", "urchins.csv")) %>%
 ```
 
 ### Purple vs Red urchins (distributions of sizes)
+This looks at urchin size across all sites and years
 
 ```{r}
 ggplot(urchins, aes(x = size)) +
@@ -44,16 +45,19 @@ ggplot(urchins, aes(x = size)) +
 ```
 
 ### Descriptive statistics for Urchins
+This looks at urchin size across all sites and years
 
 ```{r}
 urchins_stats <- urchins %>% 
   group_by(common_name) %>% 
+# use signif(x,2) to show data with 2 significant figures (same as size observations)
   summarize(mean = signif(mean(size), 2),
             median = signif(median(size), 2),
             sd = signif(sd(size), 2),
             sample_size = n())
 
 kable(urchins_stats, 
+# apply manual column headers for summary stats
       col.names = c('Species', 'Mean (cm)', 'Median (cm)', 'Standard Deviation (cm)', 'Sample Size'),
       caption = "Summary Statistics of Urchin Species Body Diameters") %>% 
   kable_styling(full_width = FALSE)
@@ -70,6 +74,7 @@ purple_urchins <- urchins %>%
   mutate(date = mdy(date)) %>% 
   mutate(year = year(date)) %>% 
   mutate(site_full = case_when(
+# create new variable with the observation site full name, based on abrieviation 
     site == "NAPL" ~ "Naples Reef",
     site == "AQUE" ~ "Arroyo Quenado Reef",
     site == 'CARP' ~ 'Carpinteria Reef',
@@ -97,12 +102,10 @@ ggplot(purple_urchins_trend, aes(x = year, y = pop)) +
        color = "Site") +
   theme_minimal() +
 # center plot title
-  theme(plot.title = element_text(hjust = .5)) 
+  theme(plot.title = element_text(hjust = .5)) +
+# manually set the x-axis breaks
+  scale_x_discrete(limit = c(2008:2020))
 ```
 
-
 Data Interpretation: Population sampling of Purple Urchins indicate that, at every site in the study, populations have declined between 2008 and 2020. The sampling data could include errors resulting from differences in sampling methodology. Additionally, kelp treatment at the sites may have an impact on observed population sizes.
-
-QUESTIONS:
-1. half years for purple urchin trends
 

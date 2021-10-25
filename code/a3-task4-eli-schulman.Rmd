@@ -60,13 +60,14 @@ urchins_purp_stats <- urchins_purp %>%
 # create sample statistics
   summarize(sample_size = n(),
             mean = signif(mean(size), 2),
+            median = signif(median(size), 2),
             min = signif(min(size), 2),
             max = signif(max(size), 2),
             sd = signif(sd(size), 2)
             )
 # create a formatted kable table 
 kable(urchins_purp_stats, 
-      col.names = c('Sampling Group', 'Sample Size', 'Mean (cm)', 'Smallest (cm)', 'Largest (cm)', 'Standard Deviation (cm)'),
+      col.names = c('Sampling Group', 'Sample Size', 'Mean (cm)', 'Median (cm)', 'Smallest (cm)', 'Largest (cm)', 'Standard Deviation (cm)'),
       caption = 'Sample Statistics for Purple Urchins at Naples Reef') %>% 
   kable_styling(full_width = FALSE) %>% 
   kable_material(c("striped"))

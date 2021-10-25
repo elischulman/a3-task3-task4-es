@@ -214,13 +214,14 @@ ggplot(urchins_purp, aes(sample = size)) +
 # create sample statistics
   summarize(sample_size = n(),
             mean = signif(mean(size), 2),
+            median = signif(median(size), 2),
             min = signif(min(size), 2),
             max = signif(max(size), 2),
             sd = signif(sd(size), 2)
             )
 # create a formatted kable table 
 kable(urchins_purp_stats, 
-      col.names = c(&#39;Sampling Group&#39;, &#39;Sample Size&#39;, &#39;Mean (cm)&#39;, &#39;Smallest (cm)&#39;, &#39;Largest (cm)&#39;, &#39;Standard Deviation (cm)&#39;),
+      col.names = c(&#39;Sampling Group&#39;, &#39;Sample Size&#39;, &#39;Mean (cm)&#39;, &#39;Median (cm)&#39;, &#39;Smallest (cm)&#39;, &#39;Largest (cm)&#39;, &#39;Standard Deviation (cm)&#39;),
       caption = &#39;Sample Statistics for Purple Urchins at Naples Reef&#39;) %&gt;% 
   kable_styling(full_width = FALSE) %&gt;% 
   kable_material(c(&quot;striped&quot;))</code></pre>
@@ -238,6 +239,9 @@ Sample Size
 </th>
 <th style="text-align:right;">
 Mean (cm)
+</th>
+<th style="text-align:right;">
+Median (cm)
 </th>
 <th style="text-align:right;">
 Smallest (cm)
@@ -262,6 +266,9 @@ Annual Kelp Removal (Each Winter)
 3.7
 </td>
 <td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
 2.5
 </td>
 <td style="text-align:right;">
@@ -280,6 +287,9 @@ Control Group (No Kelp Removal)
 </td>
 <td style="text-align:right;">
 3.9
+</td>
+<td style="text-align:right;">
+4.0
 </td>
 <td style="text-align:right;">
 2.5
